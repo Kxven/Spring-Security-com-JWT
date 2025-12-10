@@ -29,19 +29,19 @@ public class SecurityConfig {
                         .requestMatchers("/users").hasAnyRole("USERS", "MANAGERS")
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());
+                .formLogin(Customizer.withDefaults());
 
         return http.build();
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails manager = User.withUsername("manager")
+        UserDetails manager = User.withUsername("manager123")
                 .password("{noop}123")
                 .roles("MANAGERS")
                 .build();
 
-        UserDetails user = User.withUsername("user")
+        UserDetails user = User.withUsername("user123")
                 .password("{noop}123")
                 .roles("USERS")
                 .build();
