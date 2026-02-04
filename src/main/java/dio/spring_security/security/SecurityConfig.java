@@ -1,48 +1,41 @@
 package dio.spring_security.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.context.annotation.Bean;
 
 @Configuration
 @ConfigurationProperties(prefix = "security.config")
 public class SecurityConfig {
 
-    public static String PREFIX;
-    public static String KEY;
-    public static Long EXPIRATION;
+    private String prefix;
+    private String key;
+    private Long expiration;
 
-    public static void setPREFIX( String PREFIX ){
-        SecurityConfig.PREFIX = PREFIX;
+    public String getPrefix() {
+        return prefix;
     }
 
-    public static void setKEY( String KEY ){
-        SecurityConfig.KEY = KEY;
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
-    public static void setEXPIRATION( Long EXPIRATION ){
-        SecurityConfig.EXPIRATION = EXPIRATION;
+    public String getKey() {
+        return key;
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/users").hasAnyRole("USERS", "MANAGERS")
-                        .requestMatchers("/managers").hasRole("MANAGERS")
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(Customizer.withDefaults());
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-        return http.build();
+    public Long getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(Long expiration) {
+        this.expiration = expiration;
     }
 
     @Bean
