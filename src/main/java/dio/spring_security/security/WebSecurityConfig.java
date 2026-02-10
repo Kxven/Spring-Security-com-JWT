@@ -15,9 +15,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
-    public static final String PREFIX = "Bearer";
-    public static final String KEY = "my-secret-key";
-
     @Bean
     public SecurityFilterChain filterChain(
             HttpSecurity http,
